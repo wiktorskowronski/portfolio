@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  psql:
+    container_name: portfolio_db
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=portfolio
+      - POSTGRES_USER=portfolio
+      - POSTGRES_PASSWORD=portfolio
+    ports:
+      - 7654:5432
+  cache:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+
